@@ -13,8 +13,15 @@ class App extends Component {
     fetch('https://swapi.co/api/people')
       .then(results => results.json())
       .then(data => {
-        console.log('sup, data?', data);
-        this.setState({characters: data})
+        let characters = data.results.map((character) => {
+          return(
+            <div key={character.name}>
+              <li className="character">{character.name}</li>
+            </div>
+          )
+        })
+        // console.log('sup, data?', data);
+        this.setState({characters: characters})
       })
   }
 
@@ -23,7 +30,9 @@ class App extends Component {
     return (
       <div className="App">
         <h1>hello dave</h1>
-
+        <ul className="characters">
+          {this.state.characters}
+        </ul>
       </div>
     );
   }
